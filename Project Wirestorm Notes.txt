@@ -34,3 +34,7 @@ Produce a Proxy that can:
 
 tests are available in python 3.12, deadline 08:00 Friday 22nd August 2025, results 29th August 2025
 see website for more submission details: https://www.coretechsec.com/operation-wire-storm
+
+
+
+So, I need to develop a proxy that will be listening on 2 ports:
