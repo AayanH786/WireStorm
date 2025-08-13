@@ -1,0 +1,36 @@
+Custom protocol, CoreTech Message Protocol (CTMP)
+use C++ or Rust
+relay messages via a custom proxy
+encapsulates large data transfers over TCP
+prepended with the CTMP header, which consists of:
+1.	A single Magic byte, always 0xCC
+2.	A single Padding bye, filled with 0x00
+3.	The length of the data to follow, not including the length of the header. unsigned, network byte order
+4.	Padding bytes, filled with 0x00
+
+e.g
+
+0               1               2               3
+0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| MAGIC 0xCC    | PADDING       | LENGTH                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| PADDING                                                     |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| DATA ...................................................... |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+
+
+
+The Challenge
+
+Produce a Proxy that can:
+
+1.	Allow a single source client to connect on port 33333
+2.	Allow multiple destination clients to connect on port 44444
+3.	Accept CTMP messages over TCP from the source client, and broadcast to all destination clients, in order received.
+4.	Validate the magic byte and length of the data, if length exceeded, drop the whole message
+
+tests are available in python 3.12, deadline 08:00 Friday 22nd August 2025, results 29th August 2025
+see website for more submission details: https://www.coretechsec.com/operation-wire-storm
